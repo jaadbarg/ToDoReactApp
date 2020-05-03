@@ -1,9 +1,9 @@
 import React from 'react';
 
 function Todos(props) {
-console.log("hi");
-console.log(props.todos)
-return props.todos.map((todo) => (<h3>{todo.title}</h3>));
+
+
+return props.todos.todos.map((todo) => (<h3>{todo.title}</h3>));
 
 
 }
