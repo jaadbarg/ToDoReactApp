@@ -2,9 +2,13 @@
 import React, { Component } from 'react'
 import './App.css';
 import Todos from './components/Todos'
+import Header from './layout/Header'
+import AddItem from './components/AddItem'
+
 
 export class App extends Component {
   state = {
+    name: "",
     todos: [ { 
       id: 1,
       title: "eat cheese",
@@ -29,18 +33,35 @@ export class App extends Component {
         todo.done = !todo.done;
       }
       return todo;
-    }) });
+    }) 
+  });
   }
 
   delTodo = (id) => {
     this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]})
   }
 
+  nameList = () => {
+    this.setState({name: prompt("What is the name of your list?")})
+
+  }
+
+  
 
   render() {
     return (
+      <div>
+
+      <Header nameList={this.nameList} daName={this.state.name} />
+
+      <AddItem />
+
       <Todos todos={this.state} markComplete={this.markComplete} delTodo={this.delTodo}/>
-    )
+
+     
+
+      </div>
+    );
   }
 }
 
