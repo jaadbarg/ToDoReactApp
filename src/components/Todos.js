@@ -17,6 +17,6 @@ return props.todos.todos.map((todo) => (
 
 // PropTypes good practice
 Todos.propTypes = {
-    todos: PropTypes.array.isRequired
+    todos: PropTypes.object.isRequired
 }
 export default Todos;
