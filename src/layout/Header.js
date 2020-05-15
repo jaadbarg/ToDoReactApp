@@ -1,32 +1,36 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
+
 
 export class Header extends Component {
     render() {
-        var onHov = headerStyle;
         return (
+     
 
-            <header className="headClick" style={onHov}>
+            <header style={headerStyle}>
+
+            <h1 className="headClick" onClick={this.props.nameList.bind(this)}> {this.props.daName} List </h1>
+
+            <div className="honestlyUnnecessary" >
+            
+            <Link className="menuItems" to='/'>Home</Link> <div style={{color: 'white'}}>|</div> <Link className="menuItems" to='/about'>About</Link>
+            </div>
 
 
-            <h1 onClick={this.props.nameList.bind(this)}> {this.props.daName} List </h1>
+            </header>
+
+           
 
 
-        </header>
         )
     }
 }
 
 let headerStyle = {
     background: "black",
-    color: 'white',
     textAlign: 'center',
-    padding: '10px'
+    padding: '10px',
     }
-
-    
-
-
-
 
 
 
