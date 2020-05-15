@@ -7,34 +7,45 @@ import Header from './layout/Header'
 import AddItem from './components/AddItem'
 import About from './components/pages/About'
 import {v4 as uuid} from "uuid"; 
+import axios from 'axios';
 
 
 
 export class App extends Component {
+
   state = {
-    name: "",
-    todos: [ { 
-      id: uuid(),
-      title: "eat cheese",
-      done: false
-    },
-    { 
-      id: uuid(),
-      title: "eat pie",
-      done: false
-    },
-    { 
-      id: uuid(),
-      title: "eat fish",
-      done: false
-    }
-  ]
+    todos: []
   }
+
+  componentDidMount() {
+    axios.get("https://jsonplaceholder.typicode.com/todos?_limit=10")
+      .then(res => this.setState({todos: res.data}))
+  }
+  
+  // state = {
+  //   name: "",
+  //   todos: [ { 
+  //     id: uuid(),
+  //     title: "eat cheese",
+  //     completed: false
+  //   },
+  //   { 
+  //     id: uuid(),
+  //     title: "eat pie",
+  //     completed: false
+  //   },
+  //   { 
+  //     id: uuid(),
+  //     title: "eat fish",
+  //     completed: false
+  //   }
+  // ]
+  // }
 // toggles the complete with setstate so it autoupdates i.e. why we using react
   markComplete = (id) => {
     this.setState({ todos: this.state.todos.map(todo => {
       if(todo.id === id) {
-        todo.done = !todo.done;
+        todo.completed = !todo.completed;
       }
       return todo;
     }) 
@@ -55,7 +66,7 @@ export class App extends Component {
     const newTodo = {
       id: uuid(),
       title: title,
-      done: false
+      completed: false
     }
 
     this.setState({ todos: [...this.state.todos, newTodo]})
@@ -102,7 +113,7 @@ function App() {
   let markComplete = (id) => {
     setState({ todos: state.todos.map(todo => {
       if(todo.id === id) {
-        todo.done = !todo.done;
+        todo.completed = !todo.completed;
       }
       return todo;
     }) });
