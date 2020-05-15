@@ -6,7 +6,7 @@ import Todos from './components/Todos'
 import Header from './layout/Header'
 import AddItem from './components/AddItem'
 import About from './components/pages/About'
-import {v4 as uuid} from "uuid"; 
+// import {v4 as uuid} from "uuid";  we were using this earlier to generate a random
 import axios from 'axios';
 
 
@@ -51,9 +51,13 @@ export class App extends Component {
     }) 
   });
   }
+
 // delete toDo method
   delTodo = (id) => {
-    this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]})
+    axios.delete(`http://jsonplaceholder.typicode.com/todos/${id}`)
+      .then(res => this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]}))
+
+    //this.setState({todos: [...this.state.todos.filter(todo => todo.id !== id)]})
   }
 // name list method
   nameList = () => {
@@ -63,15 +67,29 @@ export class App extends Component {
 
   //add item method
   addTodo = (title) => {
-    const newTodo = {
-      id: uuid(),
-      title: title,
-      completed: false
-    }
 
-    this.setState({ todos: [...this.state.todos, newTodo]})
+    axios.post('http://jsonplaceholder.typicode.com/todos', {
+    title: title,  // we are sending post request with url and then second paramter is setting what we are sending...
+    completed: false,
+    })
 
-}
+    .then(res => this.setState({todos: [...this.state.todos, res.data]}))
+
+
+    // this.setState({ todos: [...this.state.todos, newTodo]})
+
+
+
+    // used this earlier when hardcoding data... no need with json placeholder
+    // const newTodo = {
+    //   id: uuid(),
+    //   title: title,
+    //   completed: false
+    // }
+    //spread operator (...) to make copy of old object array and attach newTodo onto it
+  }
+
+
 
   
 
